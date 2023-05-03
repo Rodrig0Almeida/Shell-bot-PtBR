@@ -37,7 +37,7 @@ bot.on("updateError", function (err) {
 bot.on("synced", function () {
   console.log("Bot ready.");
   const axios = require('axios');
-  const message = 'The Bot started!';
+  const message = 'O Bot foi iniciado! \uD83D\uDFE2';
   const chatId = config.owner;
   const apiUrl = `https://api.telegram.org/bot${config.authToken}`;
   axios.post(`${apiUrl}/sendMessage`, {
@@ -485,32 +485,34 @@ bot.command("start", function (msg, reply, next) {
 
 bot.command("help", function (msg, reply, next) {
   reply.html(
-    "Use /run &lt;command&gt; and I'll execute it for you. While it's running, you can:\n" +
+    "Use /run &lt;command&gt; e eu vou executá-lo para você. Enquanto estiver rodando, você pode:\n" +
     "\n" +
-    "‣ Reply to one of my messages to send input to the command, or use /enter.\n" +
-    "‣ Use /end to send an EOF (Ctrl+D) to the command.\n" +
-    "‣ Use /cancel to send SIGINT (Ctrl+C) to the process group, or the signal you choose.\n" +
-    "‣ Use /kill to send SIGTERM to the root process, or the signal you choose.\n" + 
-    "‣ For graphical applications, use /redraw to force a repaint of the screen.\n" +
-    "‣ Use /type or /control to press keys, /meta to send the next key with Alt, or /keypad to show a keyboard for special keys.\n" + 
+    "‣ Responder uma das minhas mensagens para enviar uma entrada para o comando, ou usar /enter.\n" +
+    "‣ Usar /end para enviar um EOF (Ctrl+D) para o comando.\n" +
+    "‣ Usar /cancel para enviar um SIGINT (Ctrl+C) para o grupo de processos, ou o sinal que você escolher.\n" +
+    "‣ Usar /kill para enviar um SIGTERM para o processo raiz, ou o sinal que você escolher.\n" + 
+    "‣ Para aplicativos gráficos, use /redraw para forçar uma repintura da tela.\n" +
+    "‣ Use /type ou /control para pressionar teclas, /meta para enviar a próxima tecla com Alt, ou /keypad para mostrar um teclado para teclas especiais.\n" + 
     "\n" +
-    "You can see the current status and settings for this chat with /status. Use /env to " +
-    "manipulate the environment, /cd to change the current directory, /shell to see or " +
-    "change the shell used to run commands and /resize to change the size of the terminal.\n" +
+    "Você pode ver o status atual e configurações deste chat com /status. Use /env para " +
+    "manipular o ambiente, /cd para mudar o diretório atual, /shell para ver ou " +
+    "alterar o shell usado para rodar comandos e /resize para mudar o tamanho do terminal.\n" +
     "\n" +
-    "By default, output messages are sent silently (without sound) and links are not expanded. " +
-    "This can be changed through /setsilent and /setlinkpreviews. Note: links are " +
-    "never expanded in status lines.\n" +
+    "Por padrão, as mensagens de saída são enviadas em silêncio (sem som) e os links não são expandidos. " +
+    "Isso pode ser alterado através de /setsilent e /setlinkpreviews. Observação: links não são " +
+    "expandidos nas linhas de status.\n" +
     "\n" +
-    "<em>Additional features</em>\n" +
+    "<em>Recursos adicionais</em>\n" +
     "\n" +
-    "Use /upload &lt;file&gt; and I'll send that file to you. If you reply to that " +
-    "message by uploading me a file, I'll overwrite it with yours.\n" +
+    "Use /upload &lt;arquivo&gt; e eu enviarei esse arquivo para você. Se você responder a essa " +
+    "mensagem fazendo upload de um arquivo para mim, eu o substituirei pelo seu.\n" +
     "\n" +
-    "You can also use /file &lt;file&gt; to display the contents of file as a text " +
-    "message. This also allows you to edit the file, but you have to know how..."
+    "Você também pode usar /file &lt;arquivo&gt; para exibir o conteúdo do arquivo como uma mensagem de texto. Isso também permite que você edite o arquivo, mas você precisa saber como..." +
+    "\n"
   );
 });
+
+
 
 // FIXME: add inline bot capabilities!
 // FIXME: possible feature: restrict chats to UIDs
