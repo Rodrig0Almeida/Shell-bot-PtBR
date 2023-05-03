@@ -1,83 +1,64 @@
 # shell-bot
 
-This is a fully functional shellrunner [Telegram bot][]. You tell it a
-command, it executes it and posts the live output. You can send input to the
-command by replying to the output messages.
+Este é um bot [Telegram][Telegram bot] totalmente funcional. Você informa um comando, ele o executa e posta a saída ao vivo. Você pode enviar entrada para o comando respondendo às mensagens de saída.
 
-It's a fairly complex example, because it actually appears to the
-command as a terminal, interprets escape sequences and **it will
-update messages if their lines get touched**. This means interactive
-programs such as wget should work naturally, you should see the
-status bar update.
+É um exemplo bastante complexo, porque ele realmente aparece para o comando como um terminal, interpreta sequências de escape e **atualizará as mensagens se suas linhas forem tocadas**. Isso significa que programas interativos como o wget devem funcionar naturalmente, você deve ver a barra de status ser atualizada.
 
-The bot also allows files to be uploaded or downloaded, and also
-has a simple text editor available for convenience.
+O bot também permite o upload ou download de arquivos e possui um editor de texto simples disponível para conveniência.
 
-Here's an example of the bot running `git` to clone a repository:
+Aqui está um exemplo do bot executando `git` para clonar um repositório:
 
 ![Basic tasks](http://i.imgur.com/Xxtoe4G.png)
 
-Here's an example of the bot running alsamixer:
+Aqui está um exemplo do bot executando alsamixer:
 
 ![Alsamixer with keypad](http://i.imgur.com/j8aXFLd.png)
 
-This bot demonstrates a great part of [Botgram][]'s API.
+Este bot demonstra uma grande parte da API do [Botgram][].
 
-**Note:** Due to the tight integration, running this bot on Windows is
-currently *not* supported.
+**Nota:** Devido à integração estreita, executar este bot no Windows atualmente *não* é suportado.
 
-## Install
+## Instalação
 
-First install [node-pty dependencies](https://github.com/Microsoft/node-pty#dependencies). For example, if you're in Ubuntu/Debian:
+Primeiro, instale as dependências [node-pty](https://github.com/Microsoft/node-pty#dependencies). Por exemplo, se você estiver no Ubuntu/Debian:
 
 ~~~
 sudo apt install -y make python build-essential
 ~~~
 
-If you're using fedora instead:
+Se você estiver usando o fedora em vez disso:
 ```
 sudo dnf install -y python
 sudo dnf group install -y "C Development Tools and Libraries" 
 ```
 
-Before using this, you should have obtained an auth token for your bot,
-and know your personal user's numeric ID. If you don't know what this
-means, check out the [blog post][] for a full step-by-step guide.
+Antes de usar isso, você deve ter obtido um token de autenticação para seu bot e saber o ID numérico do usuário pessoal. Se você não sabe o que isso significa, confira a [postagem do blog][blog post] para obter um guia completo passo a passo.
 
 ~~~
 git clone https://github.com/botgram/shell-bot.git && cd shell-bot
 npm install && npm install axios
 ~~~
 
-To start the bot:
+Para iniciar o bot:
 
 ~~~
 node server
 ~~~
 
-The first time you run it, it will ask you some questions and create
-the configuration file automatically: `config.json`. You can also
-write it manually, see `config.example.json`.
+Na primeira vez que você executá-lo, ele fará algumas perguntas e criará o arquivo de configuração automaticamente: `config.json`. Você também pode escrevê-lo manualmente, consulte `config.example.json`.
 
-When started it will print a `Bot ready.` message when it's up and running.
-For convenience, you might want to talk to the BotFather and set the
-command list to the contents of `commands.txt`.
+Quando iniciado, ele imprimirá uma mensagem `Bot ready.` quando estiver ativo e em execução.
+Para conveniência, você pode conversar com o BotFather e definir a lista de comandos para o conteúdo de `commands.txt`.
 
-## Authorization
+## Autorização
 
-When first started, the bot will just accept messages coming from your user.
-This is for security reasons: you don't want arbitrary people to issue
-commands to your computer!
+Quando iniciado pela primeira vez, o bot aceitará apenas mensagens vindas do seu usuário. Isso é por motivos de segurança: você não deseja que pessoas arbitrariamente enviem comandos para o seu computador!
 
-If you want to allow another user to use the bot, use `/token` and give
-that user the resulting link. If you want to use this bot on a group,
-`/token` will give you a message to forward into the group.
+Se você deseja permitir que outro usuário use o bot, use `/token` e dê a esse usuário o link resultante. Se você deseja usar este bot em um grupo, `/token` lhe dará uma mensagem para encaminhar para o grupo.
 
-## Proxy server
+## Servidor Proxy
 
-shell-bot obeys the `https_proxy` or `all_proxy` environment variable
-to use a proxy, and supports HTTP/HTTPS/SOCKS4/SOCKS4A/SOCKS5 proxies.
-Examples:
+O shell-bot obedece à variável de ambiente `https_proxy` ou `all_proxy` para usar um servidor proxy e suporta proxies HTTP/HTTPS/SOCKS4/SOCKS4A/SOCKS5. Exemplos:
 
 ~~~ bash
 export https_proxy="http://168.63.76.32:3128"
@@ -87,72 +68,72 @@ export https_proxy="socks://127.0.0.1:9050"
 node server
 ~~~
 
-**Warning:** For SOCKS proxies, you need to use an IP address (not a DNS hostname).
+**Aviso:** Para SOCKS proxies, você precisa usar um endereço IP (não um nome de host DNS).
 
-## Start together with your machine
+## Iniciando junto com o sistema
 
-To automatically start the shell-bot on system boot, you can create a startup script and configure the system to execute it during boot. Here's an example of how to create a startup script for the shell-bot and configure the system to execute it on boot using Systemd on Ubuntu/Debian:
+Para iniciar automaticamente o shell-bot durante a inicialização do sistema, você pode criar um script de inicialização e configurar o sistema para executá-lo durante a inicialização. Aqui está um exemplo de como criar um arquivo de serviço para o shell-bot e configurar o sistema para executá-lo na inicialização usando Systemd no Ubuntu/Debian:
 
-1. Open a terminal and navigate to the shell-bot directory:
+1. Abra um terminal e navegue até o diretório do shell-bot:
 
    ```
    cd shell-bot
    ```
 
-2. Create a service file for the shell-bot in Systemd:
+2. Crie um arquivo de serviço para o shell-bot no Systemd:
 
    ```
    sudo nano /etc/systemd/system/shell-bot.service
    ```
 
-3. Copy and paste the following content into the service file:
+3. Copie e cole o seguinte conteúdo no arquivo de serviço:
 
    ```
    [Unit]
-   Description=Shell Bot
+   Description=Bot de Shell
    
    [Service]
    ExecStart=/usr/bin/node /path/to/shell-bot/server.js
    WorkingDirectory=/path/to/shell-bot
    Restart=on-failure
    RestartSec=10s
-   User=yourusername
+   User=seunome
    
    [Install]
    WantedBy=multi-user.target
    ```
 
-   Replace "/path/to/shell-bot" and "/path/to/shell-bot/server.js" with the full path to the directory where you cloned the shell-bot repository. Replace "yourusername" with the username you use to run the bot.
+   Substitua "/path/to/shell-bot" e "/path/to/shell-bot/server.js" pelo caminho completo para o diretório onde você clonou o repositório do shell-bot. Substitua "seunome" pelo nome de usuário que você usa para executar o bot.
 
-4. Save the file and exit the text editor.
+4. Salve o arquivo e saia do editor de texto.
 
-5. Reload the Systemd daemon to read the new service file:
+5. Recarregue o daemon Systemd para ler o novo arquivo de serviço:
 
    ```
    sudo systemctl daemon-reload
    ```
 
-6. Enable the service to start the bot on system boot:
+6. Habilite o serviço para iniciar o bot durante a inicialização do sistema:
 
    ```
    sudo systemctl enable shell-bot.service
    ```
 
-7. Start the service to test if the bot starts correctly:
+7. Inicie o serviço para testar se o bot inicia corretamente:
 
    ```
    sudo systemctl start shell-bot.service
    ```
 
-8. Check the status of the service to ensure the bot is running:
+8. Verifique o status do serviço para garantir que o bot esteja em execução:
 
    ```
    sudo systemctl status shell-bot.service
    ```
 
-   If everything is working correctly, the status should indicate that the service is active (running) and without errors.
+   Se tudo estiver funcionando corretamente, o status deve indicar que o serviço está ativo (em execução) e sem erros.
 
-From now on, the shell-bot will start automatically on system boot.
+A partir de agora, o shell-bot iniciará automaticamente durante a inicialização do sistema. 
 
 ##
 [Telegram bot]: https://core.telegram.org/bots
