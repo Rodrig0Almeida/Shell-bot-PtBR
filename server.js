@@ -206,6 +206,180 @@ bot.command("run", function (msg, reply, next) {
   });
 });
 
+// comando sudo
+bot.command("sudo", function (msg, reply, next) {
+  var args = msg.args();
+  if (!args)
+    return reply.html("Use /sudo &lt;command&gt; to execute something.");
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «sudo %s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, "sudo " + args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+
+// comando neofetch
+bot.command("neofetch", function (msg, reply, next) {
+  var args = "neofetch"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /htop
+bot.command("htop", function (msg, reply, next) {
+  var args = "htop"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /speedtest
+bot.command("speedtest", function (msg, reply, next) {
+  var args = "speedtest"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /sensors
+bot.command("sensors", function (msg, reply, next) {
+  var args = "sensors"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /telebot
+bot.command("telebot", function (msg, reply, next) {
+  var args = "python3 /home/rodrigo/my-telebot/telebot.py"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /ligar_pc
+bot.command("ligar_pc", function (msg, reply, next) {
+  var args = "sudo wakeonlan 24:4B:FE:0C:A6:64"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;node 
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /restart
+bot.command("restart", function (msg, reply, next) {
+  var args = "sudo systemctl restart shell-bot.service"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+// Comando /reboot
+bot.command("reboot", function (msg, reply, next) {
+  var args = "sudo reboot"; // comando que será executado
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+  console.log("Chat «%s»: running command «%s»", msg.chat.name, args);
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
 // Editor start
 bot.command("file", function (msg, reply, next) {
   var args = msg.args();
@@ -487,12 +661,14 @@ bot.command("help", function (msg, reply, next) {
   reply.html(
     "Use /run &lt;command&gt; e eu vou executá-lo para você. Enquanto estiver rodando, você pode:\n" +
     "\n" +
+    "Use /sudo &lt;command&gt; e eu vou executá-lo para você como sudo. Enquanto estiver rodando, você pode:\n" +
+    "\n" +
     "‣ Responder uma das minhas mensagens para enviar uma entrada para o comando, ou usar /enter.\n" +
     "‣ Usar /end para enviar um EOF (Ctrl+D) para o comando.\n" +
     "‣ Usar /cancel para enviar um SIGINT (Ctrl+C) para o grupo de processos, ou o sinal que você escolher.\n" +
-    "‣ Usar /kill para enviar um SIGTERM para o processo raiz, ou o sinal que você escolher.\n" + 
+    "‣ Usar /kill para enviar um SIGTERM para o processo raiz, ou o sinal que você escolher.\n" +
     "‣ Para aplicativos gráficos, use /redraw para forçar uma repintura da tela.\n" +
-    "‣ Use /type ou /control para pressionar teclas, /meta para enviar a próxima tecla com Alt, ou /keypad para mostrar um teclado para teclas especiais.\n" + 
+    "‣ Use /type ou /control para pressionar teclas, /meta para enviar a próxima tecla com Alt, ou /keypad para mostrar um teclado para teclas especiais.\n" +
     "\n" +
     "Você pode ver o status atual e configurações deste chat com /status. Use /env para " +
     "manipular o ambiente, /cd para mudar o diretório atual, /shell para ver ou " +
@@ -508,9 +684,24 @@ bot.command("help", function (msg, reply, next) {
     "mensagem fazendo upload de um arquivo para mim, eu o substituirei pelo seu.\n" +
     "\n" +
     "Você também pode usar /file &lt;arquivo&gt; para exibir o conteúdo do arquivo como uma mensagem de texto. Isso também permite que você edite o arquivo, mas você precisa saber como..." +
-    "\n"
+    "\n" +
+    "\n" +
+    "<em>Comandos adicionais</em>\n" +
+    "\n" +
+    "• /neofetch - exibe informações do sistema em um formato agradável\n" +
+    "• /htop - exibe o gerenciador de processos interativo htop\n" +
+    "• /speedtest - realiza um teste de velocidade de internet\n" +
+    "• /sensors - exibe informações de sensores do sistema\n" +
+    "• /telebot - abri telebot\n" +
+    "• /ligar_pc - Ligar meu pc remotamente\n" +
+    "\n" +
+    "\n" +
+    "• /restart - reinicia o bot\n"+
+    "• /reboot - reinicia o sistema\n"
   );
 });
+
+
 
 
 
